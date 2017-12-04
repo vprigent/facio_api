@@ -73,12 +73,28 @@ config :shield,
     token: Shield.TokenView,
     user: Shield.UserView
   },
-  cors_origins: "http://localhost:4200, *",
+  cors_origins: "http://localhost:4000, *",
   front_end: %{
-    base: "http://localhost:4200",
+    base: "http://localhost:4000",
     confirmation_path: "/users/confirm?confirmation_token={{confirmation_token}}",
     reset_password_path: "/users/reset-password?reset_token={{reset_token}}"
   }
+
+config :shield_notifier,
+  channels: %{
+    email: %{
+      from: %{
+        name: {:system, "Facio", "Shield Notifier"},
+        email: {:system, "Facio", "no-reply@facio.com"}
+      }
+    }
+  }
+
+config :shield_notifier, Shield.Notifier.Mailer,
+    adapter: Bamboo.LocalAdapter
+
+config :facio_api, Facio.Mailer,
+  adapter: Bamboo.LocalAdapter
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

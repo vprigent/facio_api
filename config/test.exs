@@ -17,3 +17,11 @@ config :facio_api, FacioApi.Repo,
   database: "facio_api_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :authable, Authable.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  username: "postgres",
+  password: "postgres",
+  database: "facio_api_test",
+  hostname: "localhost",
+  pool_size: 10

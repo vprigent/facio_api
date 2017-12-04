@@ -41,10 +41,10 @@ config :facio_api, FacioApi.Repo,
   hostname: "localhost",
   pool_size: 10
 
-  config :authable, Authable.Repo,
-    adapter: Ecto.Adapters.Postgres,
-    username: "postgres",
-    password: "postgres",
-    database: "facio_api_dev",
-    hostname: "localhost",
-    pool_size: 10
+config :authable, Authable.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  username: "postgres",
+  password: "postgres",
+  database: "facio_api_dev",
+  hostname: "localhost",
+  pool_size: 10

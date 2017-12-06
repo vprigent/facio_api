@@ -17,6 +17,9 @@ defmodule FacioApi.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/lists", ListController, :index
+    get "/lists/:id", ListController, :show
+    delete "/lists/:id", ListController, :delete
   end
 
   scope "/", Shield do

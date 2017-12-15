@@ -16,7 +16,6 @@ defmodule FacioApi.Router do
   scope "/", FacioApi do
     pipe_through :api
 
-    get "/", PageController, :index
     get "/lists", ListController, :index
     post "/lists", ListController, :create
     get "/lists/:id", ListController, :show

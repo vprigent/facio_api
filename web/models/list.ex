@@ -13,8 +13,8 @@ defmodule FacioApi.List do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:title])
-    |> validate_required([:title, :user])
+    |> cast(params, [:title, :user_id])
+    |> validate_required([:title, :user_id])
     |> validate_length(:title, min: 3, max: 40)
   end
 end

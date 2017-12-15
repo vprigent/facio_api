@@ -14,10 +14,11 @@ defmodule FacioApi.Router do
   end
 
   scope "/", FacioApi do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :api
 
     get "/", PageController, :index
     get "/lists", ListController, :index
+    post "/lists", ListController, :create
     get "/lists/:id", ListController, :show
     delete "/lists/:id", ListController, :delete
   end

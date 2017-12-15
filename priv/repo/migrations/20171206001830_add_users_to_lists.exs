@@ -3,8 +3,8 @@ defmodule FacioApi.Repo.Migrations.AddUsersToLists do
 
   def change do
     alter table(:lists) do
-      add :user, references(:users, on_delete: :nothing, type: :uuid)
+      add :user_id, references(:users, on_delete: :nothing, type: :uuid)
     end
-    create index(:lists, [:user])
+    create index(:lists, [:user_id])
   end
 end

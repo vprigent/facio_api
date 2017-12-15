@@ -16,10 +16,7 @@ defmodule FacioApi.Router do
   scope "/", FacioApi do
     pipe_through :api
 
-    get "/lists", ListController, :index
-    post "/lists", ListController, :create
-    get "/lists/:id", ListController, :show
-    delete "/lists/:id", ListController, :delete
+    resources "/lists", ListController, except: [:new, :edit]
   end
 
   scope "/", Shield do

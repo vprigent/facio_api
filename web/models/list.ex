@@ -1,11 +1,21 @@
 defmodule FacioApi.List do
   use FacioApi.Web, :model
 
+  alias FacioApi.List
+  alias FacioApi.Repo
+
   schema "lists" do
     field :title, :string
     belongs_to :user, Authable.Model.User
 
     timestamps()
+  end
+
+  def for_user(user) do
+    List
+    |> join(:inner, [l], u in assoc(l, :user))
+    |> where([l, u], l.user_id == ^user.id)
+    |> Repo.all()
   end
 
   @doc """

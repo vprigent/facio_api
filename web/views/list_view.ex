@@ -15,6 +15,7 @@ defmodule FacioApi.ListView do
 
   defp list_json(list) do
     %{
+      id: list.id,
       title: list.title,
       inserted_at: list.inserted_at,
       updated_at: list.updated_at

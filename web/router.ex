@@ -17,6 +17,7 @@ defmodule FacioApi.Router do
     pipe_through :api
 
     resources "/lists", ListController, except: [:new, :edit]
+    resources "/items", ItemController, except: [:new, :edit]
   end
 
   scope "/", Shield do

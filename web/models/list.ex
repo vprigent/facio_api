@@ -8,6 +8,8 @@ defmodule FacioApi.List do
     field :title, :string
     belongs_to :user, Authable.Model.User
 
+    has_many :items, FacioApi.Item
+
     timestamps()
   end
 

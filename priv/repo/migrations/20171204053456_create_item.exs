@@ -7,11 +7,11 @@ defmodule FacioApi.Repo.Migrations.CreateItem do
       add :label, :string
       add :description, :text
       add :value, :integer
-      add :list, references(:lists, on_delete: :nothing, type: :uuid)
+      add :list_id, references(:lists, on_delete: :nothing, type: :uuid)
 
       timestamps()
     end
-    create index(:items, [:list])
+    create index(:items, [:list_id])
 
   end
 end

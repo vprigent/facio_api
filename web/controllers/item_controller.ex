@@ -1,30 +1,35 @@
-defmodule FacioApi.ListController do
+defmodule FacioApi.ItemController do
   use FacioApi.Web, :controller
+  alias FacioApi.Item
   alias FacioApi.List
 
   plug Authable.Plug.Authenticate, [scopes: ~w(read write)]
 
-  def index(conn, _params) do
+  def index(conn, %{"list_id" => list_id}) do
     current_user = conn.assigns[:current_user]
 
-    lists = List.for_user(current_user)
+    list = Repo.get(List, list_id)|> Repo.preload(:items)
 
-    render conn, "index.json", lists: lists
+    if list.user_id != current_user.id do
+      conn
+      |> put_status(:forbidden)
+      |> render(FacioApi.ErrorView, "403.json")
+    else
+      items = list.items
+      render conn, "index.json", items: items
+    end
   end
 
-  def create(conn, %{"list" => list_params}) do
-    list_params =
-      list_params
-      |> Map.put("user_id", conn.assigns[:current_user].id)
+  def create(conn, %{"item" => item_params}) do
 
-    changeset = List.changeset(%List{}, list_params)
+    changeset = Item.changeset(%Item{}, item_params)
 
     case Repo.insert(changeset) do
-      {:ok, list} ->
+      {:ok, item} ->
         conn
         |> put_status(:created)
-        |> put_resp_header("location", list_path(conn, :show, list))
-        |> render("show.json", list: list)
+        |> put_resp_header("location", item_path(conn, :show, item))
+        |> render("show.json", item: item)
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
@@ -35,10 +40,10 @@ defmodule FacioApi.ListController do
   def show(conn, %{"id" => id}) do
     current_user = conn.assigns[:current_user]
 
-    list = Repo.get(List, id)
+    item = Repo.get(Item, id) |> preload(:list)
 
-    if list.user_id == current_user.id do
-      render conn, "show.json", list: list
+    if item.list.user_id == current_user.id do
+      render conn, "show.json", item: item
     else
       conn
       |> put_status(:forbidden)
@@ -46,13 +51,13 @@ defmodule FacioApi.ListController do
     end
   end
 
-  def update(conn, %{"id" => id, "list" => list_params}) do
-    list = Repo.get!(List, id)
-    changeset = List.changeset(list, list_params)
+  def update(conn, %{"id" => id, "item" => item_params}) do
+    item = Repo.get!(Item, id)
+    changeset = Item.changeset(item, item_params)
 
     case Repo.update(changeset) do
-      {:ok, list} ->
-        render(conn, "show.json", list: list)
+      {:ok, item} ->
+        render(conn, "show.json", item: item)
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
@@ -62,7 +67,7 @@ defmodule FacioApi.ListController do
 
   def delete(conn, %{"id" => id}) do
 
-    if (list = Repo.get(List, id)) && Repo.delete!(list) do
+    if (item = Repo.get(Item, id)) && Repo.delete!(item) do
       conn
       |> send_resp(:ok, "")
     else

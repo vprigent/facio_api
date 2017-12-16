@@ -15,8 +15,8 @@ defmodule FacioApi.Item do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:label, :description, :value])
-    |> validate_required([:label])
+    |> cast(params, [:label, :description, :value, :list_id])
+    |> validate_required([:label, :list_id])
     |> validate_length(:label, min: 2, max: 40)
     |> validate_number(:value, less_than: 6)
   end

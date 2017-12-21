@@ -1,30 +1,29 @@
-defmodule FacioApi.ListController do
+defmodule FacioApi.ProjectController do
   use FacioApi.Web, :controller
-  alias FacioApi.List
 
-  plug Authable.Plug.Authenticate, [scopes: ~w(read write)]
+  alias FacioApi.Project
 
-  def index(conn, _params) do
+  def index(conn, %{"project_id" => project_id}) do
     current_user = conn.assigns[:current_user]
 
-    lists = List.for_user(current_user)
+    projects = List.for_user(projects)
 
-    render conn, "index.json", lists: lists
+    render conn, "index.json", projects: projects
   end
 
-  def create(conn, %{"list" => list_params}) do
-    list_params =
-      list_params
+  def create(conn, %{"project" => project_params}) do
+    project_params =
+      project_params
       |> Map.put("user_id", conn.assigns[:current_user].id)
 
-    changeset = List.changeset(%List{}, list_params)
+    changeset = Project.changeset(%Project{}, project_params)
 
     case Repo.insert(changeset) do
-      {:ok, list} ->
+      {:ok, project} ->
         conn
         |> put_status(:created)
-        |> put_resp_header("location", list_path(conn, :show, list))
-        |> render("show.json", list: list)
+        |> put_resp_header("location", project_path(conn, :show, project))
+        |> render("show.json", project: project)
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
@@ -35,10 +34,10 @@ defmodule FacioApi.ListController do
   def show(conn, %{"id" => id}) do
     current_user = conn.assigns[:current_user]
 
-    list = Repo.get(List, id)
+    project = Repo.get(Project, id)
 
-    if list.user_id == current_user.id do
-      render conn, "show.json", list: list
+    if project.user_id == current_user.id do
+      render conn, "show.json", project: project
     else
       conn
       |> put_status(:forbidden)
@@ -46,18 +45,18 @@ defmodule FacioApi.ListController do
     end
   end
 
-  def update(conn, %{"id" => id, "list" => list_params}) do
+  def update(conn, %{"id" => id, "project" => project_params}) do
     current_user = conn.assigns[:current_user]
 
-    list = Repo.get(List, id)
+    project = Repo.get(Project, id)
 
-    if list.user_id == current_user.id do
+    if project.user_id == current_user.id do
 
-      changeset = List.changeset(list, list_params)
+      changeset = Project.changeset(project, project_params)
 
       case Repo.update(changeset) do
-        {:ok, list} ->
-          render(conn, "show.json", list: list)
+        {:ok, project} ->
+          render(conn, "show.json", project: project)
         {:error, changeset} ->
           conn
           |> put_status(:unprocessable_entity)
@@ -71,8 +70,7 @@ defmodule FacioApi.ListController do
   end
 
   def delete(conn, %{"id" => id}) do
-
-    if (list = Repo.get(List, id)) && Repo.delete!(list) do
+    if (project = Repo.get(Porject, id)) && Repo.delete!(project) do
       conn
       |> send_resp(:ok, "")
     else

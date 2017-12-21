@@ -16,6 +16,7 @@ defmodule FacioApi.Router do
   scope "/", FacioApi do
     pipe_through :api
 
+    resources "/projects", ProjectController, except: [:new, :edit]
     resources "/lists", ListController, except: [:new, :edit]
     resources "/items", ItemController, except: [:new, :edit]
   end

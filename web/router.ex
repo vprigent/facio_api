@@ -10,6 +10,7 @@ defmodule FacioApi.Router do
   end
 
   pipeline :api do
+    plug CORSPlug, [origin: "http://localhost:8080"]
     plug :accepts, ["json"]
   end
 
@@ -23,6 +24,7 @@ defmodule FacioApi.Router do
 
   scope "/", Shield do
     pipe_through :api
+
     resources "/clients", ClientController, except: [:new, :edit]
 
     get     "/apps", AppController, :index

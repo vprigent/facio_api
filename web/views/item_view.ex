@@ -17,6 +17,7 @@ defmodule FacioApi.ItemView do
     %{
       id: item.id,
       label: item.label,
+      done: item.done_at,
       description: item.description,
       inserted_at: item.inserted_at,
       updated_at: item.updated_at

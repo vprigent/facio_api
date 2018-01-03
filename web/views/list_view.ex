@@ -2,23 +2,16 @@ defmodule FacioApi.ListView do
   use FacioApi.Web, :view
 
   def render("index.json", %{lists: lists}) do
-    %{
-      lists: Enum.map(lists, &list_json/1)
-    }
+    %{data: render_many(lists, FacioApi.ListView, "list.json")}
   end
 
   def render("show.json", %{list: list}) do
-    %{
-      list: list_json(list)
-    }
+    %{data: render_one(list, FacioApi.ListView, "list.json")}
   end
 
-  defp list_json(list) do
-    %{
-      id: list.id,
+  def render("list.json", %{list: list}) do
+    %{ id: list.id,
       title: list.title,
-      inserted_at: list.inserted_at,
-      updated_at: list.updated_at
-    }
+      project_id: list.project_id }
   end
 end

@@ -10,7 +10,6 @@ defmodule FacioApi.Router do
   end
 
   pipeline :api do
-    plug CORSPlug, [origin: "http://localhost:8080"]
     plug :accepts, ["json"]
   end
 
@@ -18,7 +17,9 @@ defmodule FacioApi.Router do
     pipe_through :api
 
     resources "/projects", ProjectController, except: [:new, :edit]
+
     resources "/lists", ListController, except: [:new, :edit]
+    
     resources "/items", ItemController, except: [:new, :edit]
   end
 

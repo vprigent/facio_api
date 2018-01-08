@@ -38,5 +38,7 @@ defmodule FacioApi.Endpoint do
     key: "_facio_api_key",
     signing_salt: "OJDaXWdl"
 
+  plug CORSPlug, origin: ["http://localhost:8080"]
+
   plug FacioApi.Router
 end

@@ -1,12 +1,13 @@
 defmodule FacioApi.ProjectController do
   use FacioApi.Web, :controller
-
   alias FacioApi.Project
 
-  def index(conn, %{"project_id" => project_id}) do
+  plug Authable.Plug.Authenticate, [scopes: ~w(read write)]
+
+  def index(conn, _params) do
     current_user = conn.assigns[:current_user]
 
-    projects = List.for_user(projects)
+    projects = Project.for_user(current_user)
 
     render conn, "index.json", projects: projects
   end

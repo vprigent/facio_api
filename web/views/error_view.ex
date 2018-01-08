@@ -2,7 +2,7 @@ defmodule FacioApi.ErrorView do
   use FacioApi.Web, :view
 
   def render("404.json", _assigns) do
-    "Page not found"
+    "Resource not found"
   end
 
   def render("403.json", _assigns) do

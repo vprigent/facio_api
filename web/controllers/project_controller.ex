@@ -71,7 +71,7 @@ defmodule FacioApi.ProjectController do
   end
 
   def delete(conn, %{"id" => id}) do
-    if (project = Repo.get(Porject, id)) && Repo.delete!(project) do
+    if (project = Repo.get(Project, id)) && Repo.delete!(project) do
       conn
       |> send_resp(:ok, "")
     else

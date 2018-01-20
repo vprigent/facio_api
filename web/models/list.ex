@@ -7,6 +7,7 @@ defmodule FacioApi.List do
 
   schema "lists" do
     field :title, :string
+    field :sequence, :integer
     belongs_to :user, Authable.Model.User
     belongs_to :project, FacioApi.Project
 

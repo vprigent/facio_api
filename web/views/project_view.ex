@@ -11,6 +11,7 @@ defmodule FacioApi.ProjectView do
 
   def render("project.json", %{project: project}) do
     %{id: project.id,
-      name: project.name}
+      name: project.name,
+      sequence: project.sequence}
   end
 end

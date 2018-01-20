@@ -6,8 +6,9 @@ defmodule FacioApi.Project do
 
   schema "projects" do
     field :name, :string
-    belongs_to :user, Authable.Model.User
+    field :sequence, :integer
 
+    belongs_to :user, Authable.Model.User
     has_many :lists, FacioApi.List
 
     timestamps()

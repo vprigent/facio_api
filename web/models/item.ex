@@ -5,6 +5,7 @@ defmodule FacioApi.Item do
     field :label, :string
     field :description, :string
     field :value, :integer
+    field :sequence, :integer
     field :done_at, :utc_datetime
     belongs_to :list, FacioApi.List
 

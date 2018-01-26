@@ -8,15 +8,15 @@ defmodule FacioApi.ItemController do
   def index(conn, %{"list_id" => list_id}) do
     current_user = conn.assigns[:current_user]
 
-    list = Repo.get(List, list_id)|> Repo.preload(:items)
+    list = Repo.get(List, list_id) |> Repo.preload(:items)
 
-    if list.user_id != current_user.id do
+    if list && list.user_id == current_user.id do
+      items = list.items
+      render conn, "index.json", items: items
+    else
       conn
       |> put_status(:forbidden)
       |> render(FacioApi.ErrorView, "403.json")
-    else
-      items = list.items
-      render conn, "index.json", items: items
     end
   end
 

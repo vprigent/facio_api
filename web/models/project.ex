@@ -27,7 +27,7 @@ defmodule FacioApi.Project do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name])
+    |> cast(params, [:name, :sequence, :user_id])
     |> validate_required([:name])
   end
 end

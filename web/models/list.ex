@@ -2,7 +2,6 @@ defmodule FacioApi.List do
   use FacioApi.Web, :model
 
   alias FacioApi.List
-  alias FacioApi.Project
   alias FacioApi.Repo
 
   schema "lists" do
@@ -28,7 +27,7 @@ defmodule FacioApi.List do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:title, :user_id, :project_id])
+    |> cast(params, [:title, :user_id, :project_id, :sequence])
     |> validate_required([:title, :user_id, :project_id])
     |> validate_length(:title, min: 3, max: 40)
   end

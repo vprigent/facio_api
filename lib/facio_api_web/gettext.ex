@@ -1,4 +1,4 @@
-defmodule FacioApi.Gettext do
+defmodule FacioApiWeb.Gettext do
   @moduledoc """
   A module providing Internationalization with a gettext-based API.
 

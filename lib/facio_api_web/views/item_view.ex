@@ -1,12 +1,12 @@
-defmodule FacioApi.ItemView do
+defmodule FacioApiWeb.ItemView do
   use FacioApi.Web, :view
 
   def render("index.json", %{items: items}) do
-    %{data: render_many(items, FacioApi.ItemView, "item.json")}
+    %{data: render_many(items, FacioApiWeb.ItemView, "item.json")}
   end
 
   def render("show.json", %{item: item}) do
-    %{data: render_one(item, FacioApi.ItemView, "item.json")}
+    %{data: render_one(item, FacioApiWeb.ItemView, "item.json")}
   end
 
   def render("item.json", %{item: item}) do

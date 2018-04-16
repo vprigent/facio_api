@@ -1,15 +1,15 @@
-defmodule FacioApi.Project do
+defmodule FacioApiWeb.Project do
   use FacioApi.Web, :model
-  alias FacioApi.Project
-  alias FacioApi.Repo
 
+  alias FacioApiWeb.Project
+  alias FacioApiWeb.Repo
 
   schema "projects" do
     field :name, :string
     field :sequence, :integer
 
     belongs_to :user, Authable.Model.User
-    has_many :lists, FacioApi.List
+    has_many :lists, FacioApiWeb.List
 
     timestamps()
   end

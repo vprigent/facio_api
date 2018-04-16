@@ -6,7 +6,7 @@ defmodule FacioApi.ErrorViewTest do
 
   test "renders 404.json" do
     assert render_to_string(FacioApi.ErrorView, "404.json", []) ==
-           "\"Page not found\""
+           "\"Resource not found\""
   end
 
   test "render 500.html" do

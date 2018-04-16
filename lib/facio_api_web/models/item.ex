@@ -1,4 +1,4 @@
-defmodule FacioApi.Item do
+defmodule FacioApiWeb.Item do
   use FacioApi.Web, :model
 
   schema "items" do

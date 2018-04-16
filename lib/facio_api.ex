@@ -9,9 +9,9 @@ defmodule FacioApi do
     # Define workers and child supervisors to be supervised
     children = [
       # Start the Ecto repository
-      supervisor(FacioApi.Repo, []),
+      supervisor(FacioApiWeb.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(FacioApi.Endpoint, []),
+      supervisor(FacioApiWeb.Endpoint, []),
       # Start your own worker by calling: FacioApi.Worker.start_link(arg1, arg2, arg3)
       # worker(FacioApi.Worker, [arg1, arg2, arg3]),
     ]
@@ -25,7 +25,7 @@ defmodule FacioApi do
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
-    FacioApi.Endpoint.config_change(changed, removed)
+    FacioApiWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end

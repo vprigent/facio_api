@@ -1,6 +1,7 @@
-defmodule FacioApi.ProjectController do
+defmodule FacioApiWeb.ProjectController do
   use FacioApi.Web, :controller
-  alias FacioApi.Project
+
+  alias FacioApiWeb.Project
 
   plug Authable.Plug.Authenticate, [scopes: ~w(read write)]
 
@@ -23,7 +24,7 @@ defmodule FacioApi.ProjectController do
       {:ok, project} ->
         conn
         |> put_status(:created)
-        |> put_resp_header("location", project_path(conn, :show, project))
+        # |> put_resp_header("location", project_path(conn, :show, project))
         |> render("show.json", project: project)
       {:error, changeset} ->
         conn
@@ -61,7 +62,7 @@ defmodule FacioApi.ProjectController do
         {:error, changeset} ->
           conn
           |> put_status(:unprocessable_entity)
-          |> render(FacioApi.ChangesetView, "error.json", changeset: changeset)
+          |> render(FacioApiWeb.ChangesetView, "error.json", changeset: changeset)
       end
     else
       conn

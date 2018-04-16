@@ -1,7 +1,7 @@
 defmodule FacioApi.ListTest do
-  use FacioApi.ModelCase
+  use FacioApiWeb.ModelCase
 
-  alias FacioApi.List
+  alias FacioApiWeb.List
   alias Authable.Model.User
 
   @missing_user_attrs %{title: "Test", user: ""}
@@ -30,6 +30,15 @@ defmodule FacioApi.ListTest do
   test "validates length of title" do
     assert {:title, "should be at most 40 character(s)"} in errors_on(%List{}, @long_title_attr)
     assert {:title, "should be at least 3 character(s)"} in errors_on(%List{}, @short_title_attr)
+  end
+
+  test "when creating items for the list" do
+    Repo.insert(%User{email: "test@gmail.com", password: "foobarfoo"})
+
+    user = Repo.get_by(User, email: "test@gmail.com")
+
+    Repo.insert(%List{title: "New title", user: user})
+
   end
 
 end

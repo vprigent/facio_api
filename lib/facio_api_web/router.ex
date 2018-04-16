@@ -1,4 +1,4 @@
-defmodule FacioApi.Router do
+defmodule FacioApiWeb.Router do
   use FacioApi.Web, :router
 
   pipeline :browser do
@@ -13,14 +13,16 @@ defmodule FacioApi.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", FacioApi do
+  scope "/", FacioApiWeb do
     pipe_through :api
 
     resources "/projects", ProjectController, except: [:new, :edit]
 
     resources "/lists", ListController, except: [:new, :edit]
-    
+
     resources "/items", ItemController, except: [:new, :edit]
+    patch "/items/:id/done", ItemController, :done
+    post "/items/update_sequence", ItemController, :update_sequence
   end
 
   scope "/", Shield do

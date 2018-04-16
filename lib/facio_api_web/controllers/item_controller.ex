@@ -1,7 +1,8 @@
-defmodule FacioApi.ItemController do
+defmodule FacioApiWeb.ItemController do
   use FacioApi.Web, :controller
-  alias FacioApi.Item
-  alias FacioApi.List
+
+  alias FacioApiWeb.Item
+  alias FacioApiWeb.List
 
   plug Authable.Plug.Authenticate, [scopes: ~w(read write)]
 
@@ -54,6 +55,53 @@ defmodule FacioApi.ItemController do
   def update(conn, %{"id" => id, "item" => item_params}) do
     item = Repo.get!(Item, id)
     changeset = Item.changeset(item, item_params)
+
+    case Repo.update(changeset) do
+      {:ok, item} ->
+        if item_params["sequence"] != nil do
+          item
+            |> Repo.preload(:list)
+            |> List.update_sequence()
+        end
+
+        render(conn, "show.json", item: item)
+      {:error, changeset} ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> render(FacioApi.ChangesetView, "error.json", changeset: changeset)
+    end
+  end
+
+  def update_sequence(context, %{"ids" => ids}) do
+    values = Stream.with_index(ids)
+    |> Stream.map(fn {id, index} -> "(#{id}, #{index})" end)
+    |> String.join(", ")
+    |> IO.puts
+
+    Ecto.Adapters.SQL.query(Repo, """
+      UPDATE items AS i SET
+        sequence = c.sequence
+      FROM  (values
+        #{values}
+      ) AS r(id, sequence)
+      WHERE r.id = i.id
+    """)
+
+
+  end
+
+  def done(conn, %{"id" => id}) do
+    item = Repo.get!(Item, id)
+
+    IO.puts(item.done_at)
+
+    changeset =
+      case DateTime.from_iso8601(item.done_at) do
+        {:ok, _} ->
+          Item.changeset(item, %{done_at: nil})
+        _->
+          Item.changeset(item, %{done_at: DateTime.utc_now})
+      end
 
     case Repo.update(changeset) do
       {:ok, item} ->

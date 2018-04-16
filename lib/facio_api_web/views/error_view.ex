@@ -1,4 +1,4 @@
-defmodule FacioApi.ErrorView do
+defmodule FacioApiWeb.ErrorView do
   use FacioApi.Web, :view
 
   def render("404.json", _assigns) do

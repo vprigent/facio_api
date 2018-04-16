@@ -1,6 +1,7 @@
-defmodule FacioApi.ListController do
+defmodule FacioApiWeb.ListController do
   use FacioApi.Web, :controller
-  alias FacioApi.List
+
+  alias FacioApiWeb.List
 
   plug Authable.Plug.Authenticate, [scopes: ~w(read write)]
 
@@ -28,7 +29,7 @@ defmodule FacioApi.ListController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(FacioApi.ChangesetView, "error.json", changeset: changeset)
+        |> render(FacioApiWeb.ChangesetView, "error.json", changeset: changeset)
     end
   end
 
@@ -42,7 +43,7 @@ defmodule FacioApi.ListController do
     else
       conn
       |> put_status(:forbidden)
-      |> render(FacioApi.ErrorView, "403.json")
+      |> render(FacioApiWeb.ErrorView, "403.json")
     end
   end
 
@@ -61,12 +62,12 @@ defmodule FacioApi.ListController do
         {:error, changeset} ->
           conn
           |> put_status(:unprocessable_entity)
-          |> render(FacioApi.ChangesetView, "error.json", changeset: changeset)
+          |> render(FacioApiWeb.ChangesetView, "error.json", changeset: changeset)
       end
     else
       conn
       |> put_status(:forbidden)
-      |> render(FacioApi.ErrorView, "403.json")
+      |> render(FacioApiWeb.ErrorView, "403.json")
     end
   end
 
@@ -78,7 +79,7 @@ defmodule FacioApi.ListController do
     else
       conn
       |> put_status(:not_found)
-      |> render(FacioApi.ErrorView, "404.json")
+      |> render(FacioApiWeb.ErrorView, "404.json")
     end
   end
 end

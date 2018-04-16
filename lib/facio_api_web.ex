@@ -31,20 +31,20 @@ defmodule FacioApi.Web do
 
   def controller do
     quote do
-      use Phoenix.Controller
+      use Phoenix.Controller, namespace: FacioApiWeb
 
-      alias FacioApi.Repo
+      alias FacioApiWeb.Repo
       import Ecto
       import Ecto.Query
 
-      import FacioApi.Router.Helpers
-      import FacioApi.Gettext
+      import FacioApiWeb.Router.Helpers
+      import FacioApiWeb.Gettext
     end
   end
 
   def view do
     quote do
-      use Phoenix.View, root: "web/templates"
+      use Phoenix.View, root: "lib/facio_api_web/templates", namespace: FacioApiWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
@@ -52,9 +52,9 @@ defmodule FacioApi.Web do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import FacioApi.Router.Helpers
-      import FacioApi.ErrorHelpers
-      import FacioApi.Gettext
+      import FacioApiWeb.Router.Helpers
+      import FacioApiWeb.ErrorHelpers
+      import FacioApiWeb.Gettext
     end
   end
 
@@ -68,10 +68,10 @@ defmodule FacioApi.Web do
     quote do
       use Phoenix.Channel
 
-      alias FacioApi.Repo
+      alias FacioApiWeb.Repo
       import Ecto
       import Ecto.Query
-      import FacioApi.Gettext
+      import FacioApiWeb.Gettext
     end
   end
 

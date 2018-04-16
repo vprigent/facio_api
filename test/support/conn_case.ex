@@ -1,4 +1,4 @@
-defmodule FacioApi.ConnCase do
+defmodule FacioApiWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -25,10 +25,10 @@ defmodule FacioApi.ConnCase do
       import Ecto.Changeset
       import Ecto.Query
 
-      import FacioApi.Router.Helpers
+      import FacioApiWeb.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint FacioApi.Endpoint
+      @endpoint FacioApiWeb.Endpoint
     end
   end
 

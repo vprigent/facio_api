@@ -1,7 +1,7 @@
-defmodule FacioApi.Endpoint do
+defmodule FacioApiWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :facio_api
 
-  socket "/socket", FacioApi.UserSocket
+  socket "/socket", FacioApiWeb.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -40,5 +40,5 @@ defmodule FacioApi.Endpoint do
 
   plug CORSPlug, origin: ["http://localhost:8080"]
 
-  plug FacioApi.Router
+  plug FacioApiWeb.Router
 end

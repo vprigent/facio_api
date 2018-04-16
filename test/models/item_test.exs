@@ -1,7 +1,7 @@
 defmodule FacioApi.ItemTest do
-  use FacioApi.ModelCase
+  use FacioApiWeb.ModelCase
 
-  alias FacioApi.Item
+  alias FacioApiWeb.Item
 
   @short_label_attr %{label: "s"}
   @long_label_attr %{label: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "}

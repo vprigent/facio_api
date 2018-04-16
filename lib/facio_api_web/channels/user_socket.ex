@@ -1,4 +1,4 @@
-defmodule FacioApi.UserSocket do
+defmodule FacioApiWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels

@@ -7,13 +7,13 @@ use Mix.Config
 
 # General application configuration
 config :facio_api,
-  ecto_repos: [FacioApi.Repo]
+  ecto_repos: [FacioApiWeb.Repo]
 
 # Configures the endpoint
-config :facio_api, FacioApi.Endpoint,
+config :facio_api, FacioApiWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "HJXHGPEA4FaGmlEME4/d+T/vUtcHiRmlG0og2Eari3lEP/BjDSQ641L+pySRpIJz",
-  render_errors: [view: FacioApi.ErrorView, accepts: ~w(html json)],
+  render_errors: [view: FacioApiWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: FacioApi.PubSub,
            adapter: Phoenix.PubSub.PG2]
 

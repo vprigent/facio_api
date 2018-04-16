@@ -4,7 +4,7 @@ defmodule FacioApi.Mixfile do
   def project do
     [app: :facio_api,
      version: "0.1.0",
-     elixir: "~> 1.2",
+     elixir: "~> 1.6",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -23,7 +23,7 @@ defmodule FacioApi.Mixfile do
   end
 
   # Specifies which paths to compile per environment.
-  defp elixirc_paths(:test), do: ["lib", "web", "test/support"]
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_),     do: ["lib", "web"]
 
   # Specifies your project dependencies.
@@ -31,7 +31,7 @@ defmodule FacioApi.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [{:mix_test_watch, "~> 0.5", only: :dev, runtime: false},
-     {:phoenix, "~> 1.2"},
+     {:phoenix, "~> 1.3", override: true},
      {:phoenix_pubsub, "~> 1.0"},
      {:phoenix_ecto, "~> 3.0"},
      {:postgrex, ">= 0.0.0"},

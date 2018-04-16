@@ -1,12 +1,12 @@
-defmodule FacioApi.ProjectView do
+defmodule FacioApiWeb.ProjectView do
   use FacioApi.Web, :view
 
   def render("index.json", %{projects: projects}) do
-    %{data: render_many(projects, FacioApi.ProjectView, "project.json")}
+    %{data: render_many(projects, FacioApiWeb.ProjectView, "project.json")}
   end
 
   def render("show.json", %{project: project}) do
-    %{data: render_one(project, FacioApi.ProjectView, "project.json")}
+    %{data: render_one(project, FacioApiWeb.ProjectView, "project.json")}
   end
 
   def render("project.json", %{project: project}) do

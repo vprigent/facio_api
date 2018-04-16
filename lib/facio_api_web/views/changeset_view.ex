@@ -1,4 +1,4 @@
-defmodule FacioApi.ChangesetView do
+defmodule FacioApiWeb.ChangesetView do
   use FacioApi.Web, :view
 
   @doc """
@@ -16,4 +16,4 @@ defmodule FacioApi.ChangesetView do
     # as a JSON object. So we just pass it forward.
     %{errors: translate_errors(changeset)}
   end
-end 
+end

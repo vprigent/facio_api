@@ -1,4 +1,4 @@
-defmodule FacioApi.ErrorHelpers do
+defmodule FacioApiWeb.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """

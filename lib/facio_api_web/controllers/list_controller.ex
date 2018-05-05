@@ -8,9 +8,9 @@ defmodule FacioApiWeb.ListController do
   def index(conn, _params) do
     current_user = conn.assigns[:current_user]
 
-    lists = List.for_user(current_user)
+    lists = List.for_user(current_user) |> Repo.preload(:items)
 
-    render conn, "index.json", lists: lists
+    render conn, "index_with_items.json", lists: lists
   end
 
   def create(conn, %{"list" => list_params}) do

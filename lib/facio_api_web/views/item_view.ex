@@ -12,7 +12,7 @@ defmodule FacioApiWeb.ItemView do
   def render("item.json", %{item: item}) do
     %{ id: item.id,
       label: item.label,
-      done: item.done_at,
+      done: item.done_at != nil,
       sequence: item.sequence,
       description: item.description,
       inserted_at: item.inserted_at,

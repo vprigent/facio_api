@@ -72,22 +72,23 @@ defmodule FacioApiWeb.ItemController do
     end
   end
 
-  def update_sequence(context, %{"ids" => ids}) do
-    values = Stream.with_index(ids)
-    |> Stream.map(fn {id, index} -> "(#{id}, #{index})" end)
-    |> String.join(", ")
-    |> IO.puts
+  def update_sequence(conn, ids) do
+    values = Enum.map(ids, fn {index, id} -> "('#{id}', #{index})" end)
+      |> Enum.join(", ")
 
     Ecto.Adapters.SQL.query(Repo, """
       UPDATE items AS i SET
-        sequence = c.sequence
+        sequence = r.sequence
       FROM  (values
         #{values}
       ) AS r(id, sequence)
-      WHERE r.id = i.id
+      WHERE uuid(r.id) = i.id
     """)
 
+    items = from(i in Item, where: i.id in ^Map.values(ids))
+      |> Repo.all
 
+    render conn, "index.json", items: items
   end
 
   def done(conn, %{"id" => id}) do

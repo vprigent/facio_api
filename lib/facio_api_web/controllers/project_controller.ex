@@ -29,7 +29,7 @@ defmodule FacioApiWeb.ProjectController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(FacioApi.ChangesetView, "error.json", changeset: changeset)
+        |> render(FacioApiWeb.ChangesetView, "error.json", changeset: changeset)
     end
   end
 

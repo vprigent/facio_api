@@ -32,9 +32,9 @@ defmodule FacioApiWeb.ErrorHelpers do
     #     dgettext "errors", "is invalid"
     #
     if count = opts[:count] do
-      Gettext.dngettext(FacioApi.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(FacioApiWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(FacioApi.Gettext, "errors", msg, opts)
+      Gettext.dgettext(FacioApiWeb.Gettext, "errors", msg, opts)
     end
   end
 end

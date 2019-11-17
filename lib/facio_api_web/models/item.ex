@@ -9,6 +9,7 @@ defmodule FacioApiWeb.Item do
     field :done, :boolean, virtual: true
     field :done_at, :utc_datetime
     belongs_to :list, FacioApi.List
+    # many_to_many :tags, FacioApi.Tag, join_through: "items_tags"
 
     timestamps()
   end

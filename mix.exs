@@ -40,7 +40,7 @@ defmodule FacioApi.Mixfile do
      {:gettext, "~> 0.11"},
      {:bamboo, "~> 0.8"},
      {:cowboy, "~> 1.0", override: true},
-     {:shield, "~> 0.7"}]
+     {:shield, "~> 0.7"}] # will have to drop shield, its deprecated
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

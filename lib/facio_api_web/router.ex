@@ -23,6 +23,8 @@ defmodule FacioApiWeb.Router do
     resources "/items", ItemController, except: [:new, :edit]
     patch "/items/:id/done", ItemController, :done
     post "/items/update_sequence", ItemController, :update_sequence
+
+    resources "/tags", TagController, except: [:new, :edit]
   end
 
   scope "/", Shield do
